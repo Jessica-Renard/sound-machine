@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Citizen Video Sound Machine</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- data keyCodes for each letter in sound machine pad -->
+    <div class="keys">
+      <div data-key="65" class="key" keyTrigger="A">
+        <kbd>A</kbd>
+        <span class="sound">angelic</span>
+      </div>
+      <div data-key="83" class="key">
+        <kbd>S</kbd>
+        <span class="sound">windy</span>
+      </div>
+      <div data-key="68" class="key">
+        <kbd>D</kbd>
+        <span class="sound">deep</span>
+      </div>
+      <div data-key="70" class="key">
+        <kbd>F</kbd>
+        <span class="sound">rolling</span>
+      </div>
+      <div data-key="71" class="key">
+        <kbd>G</kbd>
+        <span class="sound">ominous</span>
+      </div>
+      <div data-key="72" class="key">
+        <kbd>H</kbd>
+        <span class="sound">bells</span>
+      </div>
+      <div data-key="74" class="key">
+        <kbd>J</kbd>
+        <span class="sound">tribal</span>
+      </div>
+    </div>
+
+    <!-- data keyCodes paired with audio src files -->
+    <audio data-key="65" src="sounds/cinema-sounds/1.wav"></audio>
+    <audio data-key="83" src="sounds/cinema-sounds/2.wav"></audio>
+    <audio data-key="68" src="sounds/cinema-sounds/3.wav"></audio>
+    <audio data-key="70" src="sounds/cinema-sounds/4.wav"></audio>
+    <audio data-key="71" src="sounds/cinema-sounds/5.wav"></audio>
+    <audio data-key="72" src="sounds/cinema-sounds/6.wav"></audio>
+    <audio data-key="74" src="sounds/cinema-sounds/7.wav"></audio>
+
+    <!-- JS scripts for interactive, via infile code blocks within the below script tags. A link to an external js file is often preferred but within the script tags still expected here. Also expect CDN references linked within the script tags. -->
+
+    <script>
+      /* function for clearing distinct .playing styles following their event trigger at bottom of playSound fn (see key.classList.add('playing');) */
+      function removeTransition(e) {
+        if (e.propertyName !== "transform") return;
+        e.target.classList.remove("playing");
+      }
+
+      /* function for selecting among files and divs coded above in the html layout for "keydown" and "click" prepared events, to prompt audio reset and play behaviors plus initiate .playing class styles from linked css file */
+
+      function playSound(e) {
+        /* by destinguishing keyCode value conditionally, we later in the function may interpolate this variable value reference flexible enough to identify by event type another target-based designation still drawing upon the one data set and this one function with now 2 listeners to be valid at bottom. */
+        const audio = document.querySelector(`audio[data-key="${selection}"]`);
+        const key = document.querySelector(`div[data-key="${selection}"]`);
+
+        let selection;
+        if (e.type === "click") {
+          /* e.currentTarget.dataset.key is how we designate the still-constant keyCode data (being the div item as const key and corresponding audio files item as const audio) particular to a mouseclick derived area*/
+          selection = e.currentTarget.dataset.key;
+        } else {
+          /* keyCode expects a "keydown" event listener*/
+          selection = e.keyCode;
+        }
+        if (!audio) return;
+        
+        key.classList.add("playing");
+        audio.currentTime = 0;
+        audio.play();
+      }
+
+      /* function to attach listener to each item from the array, which is first derived (in place!) by selecting for all members of the .key class, garnered as the const keys; */
+      const keys = Array.from(document.querySelectorAll(".key"));
+      /*the first argument of the .forEach function on the keys array cites the event "transitionend" from machine options, the second argument cites the programmed function by reference.*/
+      keys.forEach((key) =>
+        key.addEventListener("transitionend", removeTransition)
+      );
+      /* function to attach listener against the window; the first argument of keys.forEach cites the event "keydown" from machine options, the second argument cites the programmed function by reference*/
+      window.addEventListener("keydown", playSound);
+      /* for "click" event type; there must be separate listeners for each event type */
+      keys.forEach((key) => key.addEventListener("click", playSound));
+
+      /* add audio pause for compositions*/
+    </script>
+  </body>
+  <footer>
+    <p>
+      Audio samples from <a href="https://mixkit.co">mixkit.co</a>. Background
+      from <a href="https://wallpapercave.com">wallpapercave.com</a>
+    </p>
+  </footer>
+</html>
