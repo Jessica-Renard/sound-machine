@@ -60,12 +60,8 @@
       /* function for selecting among files and divs coded above in the html layout for "keydown" and "click" prepared events, to prompt audio reset and play behaviors plus initiate .playing class styles from linked css file */
 
       function playSound(e) {
-        
-        
+              
         /* by destinguishing keyCode value conditionally, we later in the function may interpolate this variable value reference flexible enough to identify by event type another target-based designation still drawing upon the one data set and this one function with now 2 listeners to be valid at bottom. */
-        const audio = document.querySelector(`audio[data-key="${selection}"]`);
-        const key = document.querySelector(`div[data-key="${selection}"]`);
-
         let selection;
         if (e.type === "click") {
           /* e.currentTarget.dataset.key is how we designate the still-constant keyCode data (being the div item as const key and corresponding audio files item as const audio) particular to a mouseclick derived area*/
@@ -74,6 +70,9 @@
           /* keyCode expects a "keydown" event listener*/
           selection = e.keyCode;
         }
+        const audio = document.querySelector(`audio[data-key="${selection}"]`);
+        const key = document.querySelector(`div[data-key="${selection}"]`);
+        
         if (!audio) return;
         
         key.classList.add("playing");
