@@ -9,7 +9,7 @@
   <body>
     <!-- data keyCodes for each letter in sound machine pad -->
     <div class="keys">
-      <div data-key="65" class="key" keyTrigger="A">
+      <div data-key="65" class="key">
         <kbd>A</kbd>
         <span class="sound">angelic</span>
       </div>
@@ -60,6 +60,8 @@
       /* function for selecting among files and divs coded above in the html layout for "keydown" and "click" prepared events, to prompt audio reset and play behaviors plus initiate .playing class styles from linked css file */
 
       function playSound(e) {
+        
+        
         /* by destinguishing keyCode value conditionally, we later in the function may interpolate this variable value reference flexible enough to identify by event type another target-based designation still drawing upon the one data set and this one function with now 2 listeners to be valid at bottom. */
         const audio = document.querySelector(`audio[data-key="${selection}"]`);
         const key = document.querySelector(`div[data-key="${selection}"]`);
