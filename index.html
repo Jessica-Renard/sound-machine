@@ -76,10 +76,11 @@
         if (!audio) return;
         
         key.classList.add("playing");
-        audio.currentTime = 0;
         audio.play();
         
         audio.play ? audio.pause() : audio.play();
+        let clicked += 1;
+        clicked > 2 ? audio.currentTime = 0; clicked = 0;
                 
       }
 
