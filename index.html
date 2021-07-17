@@ -77,10 +77,10 @@
         
         key.classList.add("playing");
         audio.play();
+        audio.currentTime = 0;
         
         audio.play ? audio.pause() : audio.play();
-        audio.currentTime = 0; 
-   
+ 
       }
 
       /* function to attach listener to each item from the array, which is first derived (in place!) by selecting for all members of the .key class, garnered as the const keys; */
