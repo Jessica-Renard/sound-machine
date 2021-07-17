@@ -76,13 +76,16 @@
         if (!audio) return;
         
         key.classList.add("playing");
-        audio.currentTime = 0;
         audio.play();
         
         audio.play ? audio.pause() : audio.play();
-        audio.currentTime = 0;
+        let key.clicked += 1;
+        if (key.clicked > 3) {
+          audio.currentTime = 0; 
+          key.clicked = 0;
+          audio.play();
+        }
       }
-
       /* function to attach listener to each item from the array, which is first derived (in place!) by selecting for all members of the .key class, garnered as the const keys; */
       const keys = Array.from(document.querySelectorAll(".key"));
       /*the first argument of the .forEach function on the keys array cites the event "transitionend" from machine options, the second argument cites the programmed function by reference.*/
