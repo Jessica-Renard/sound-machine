@@ -79,10 +79,10 @@
         audio.play();
         
         audio.play ? audio.pause() : audio.play();
-        let clicked += 1;
-        if (clicked > 3) {
+        let key.clicked += 1;
+        if (key.clicked > 3) {
           audio.currentTime = 0; 
-          clicked = 0;
+          key.clicked = 0;
           audio.play();
       }
 
