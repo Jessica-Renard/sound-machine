@@ -74,9 +74,9 @@
         const key = document.querySelector(`div[data-key="${selection}"]`);
         
         if (!audio) return;
-        
+        audio.paused ? audio.play() : audio.pause();
         key.classList.add("playing");
-        audio.currentTime = 0;
+        // audio.currentTime = 0;
         audio.play();
       }
 
