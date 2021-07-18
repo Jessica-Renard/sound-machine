@@ -74,14 +74,13 @@
         const key = document.querySelector(`div[data-key="${selection}"]`);
         
         if (!audio) return;
+        audio.play ? audio.pause() : audio.play();
         
         key.classList.add("playing");
         audio.currentTime = 0;
         audio.play();
-    
-        //audio.play ? audio.pause() : audio.play();
-
       }
+      
       /* function to attach listener to each item from the array, which is first derived (in place!) by selecting for all members of the .key class, garnered as the const keys; */
       const keys = Array.from(document.querySelectorAll(".key"));
       /*the first argument of the .forEach function on the keys array cites the event "transitionend" from machine options, the second argument cites the programmed function by reference.*/
